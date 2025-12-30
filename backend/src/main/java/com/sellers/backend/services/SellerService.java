@@ -35,7 +35,7 @@ public class SellerService {
     return newSeller.toDTO();
   }
 
-  public void delete(long id) {
+  public void deleteById(long id) {
     try {
       sellerRepository.deleteById(id);
     } catch (EmptyResultDataAccessException e) {
