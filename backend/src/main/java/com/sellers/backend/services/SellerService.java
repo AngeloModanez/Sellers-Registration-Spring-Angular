@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.sellers.backend.dto.seller.SellerRequest;
@@ -38,11 +37,10 @@ public class SellerService {
   }
 
   public void deleteById(long id) {
-    try {
-      sellerRepository.deleteById(id);
-    } catch (EmptyResultDataAccessException e) {
+    if (!sellerRepository.existsById(id)) {
       throw new EntityNotFoundException("Seller not found");
     }
+    sellerRepository.deleteById(id);
   }
 
   public void update(long id, SellerRequest sellerRequest) {
