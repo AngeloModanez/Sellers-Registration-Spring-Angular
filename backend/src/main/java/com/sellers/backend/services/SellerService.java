@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
 
 import com.sellers.backend.dto.seller.SellerRequest;
 import com.sellers.backend.dto.seller.SellerResponse;
@@ -13,6 +14,7 @@ import com.sellers.backend.repositories.SellerRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class SellerService {
   @Autowired
   private SellerRepository sellerRepository;
@@ -43,7 +45,7 @@ public class SellerService {
     }
   }
 
-  public SellerResponse update(long id, SellerRequest sellerRequest) {
+  public void update(long id, SellerRequest sellerRequest) {
     try {
       Seller seller = sellerRepository.getReferenceById(id);
 
@@ -52,8 +54,8 @@ public class SellerService {
       seller.setBonus(sellerRequest.getBonus());
       seller.setGender(sellerRequest.getGender());
 
-      return seller.toDTO();
-    } catch (EmptyResultDataAccessException e) {
+      sellerRepository.save(seller);
+    } catch (EntityNotFoundException e) {
       throw new EntityNotFoundException("Seller not found");
     }
   }

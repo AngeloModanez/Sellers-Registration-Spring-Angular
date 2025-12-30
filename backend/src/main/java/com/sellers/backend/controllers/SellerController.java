@@ -16,6 +16,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.sellers.backend.dto.seller.SellerRequest;
 import com.sellers.backend.dto.seller.SellerResponse;
 import com.sellers.backend.services.SellerService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,18 +30,19 @@ public class SellerController {
   @Autowired
   SellerService sellerService;
 
-  @GetMapping()
+  @GetMapping
   public ResponseEntity<List<SellerResponse>> getSellers() {
     return ResponseEntity.ok(sellerService.getAll());
   }
 
   @GetMapping("{id}")
   public ResponseEntity<SellerResponse> getSeller(@PathVariable long id) {
-    return ResponseEntity.ok(sellerService.getById(id));
+    SellerResponse sellerResponse = sellerService.getById(id);
+    return ResponseEntity.ok(sellerResponse);
   }
 
-  @PostMapping()
-  public ResponseEntity<SellerResponse> postSeller(@RequestBody SellerRequest sellerRequest) {
+  @PostMapping
+  public ResponseEntity<SellerResponse> saveSeller(@Valid @RequestBody SellerRequest sellerRequest) {
     SellerResponse sellerResponse = sellerService.save(sellerRequest);
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
@@ -56,7 +60,7 @@ public class SellerController {
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<Void> putSeller(@PathVariable long id, @RequestBody SellerRequest sellerRequest) {
+  public ResponseEntity<Void> putSeller(@PathVariable long id, @Valid @RequestBody SellerRequest sellerRequest) {
     sellerService.update(id, sellerRequest);
     return ResponseEntity.ok().build();
   }
