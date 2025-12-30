@@ -1,5 +1,7 @@
 package com.sellers.backend.models;
 
+import com.sellers.backend.dto.seller.SellerResponse;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,11 @@ public class Seller {
     this.gender = gender;
   }
 
+  public SellerResponse toDTO() {
+    SellerResponse sellerResponse = new SellerResponse(id, name, salary, bonus, gender);
+    return sellerResponse;
+  }
+
   public Long getId() {
     return id;
   }
@@ -81,5 +88,36 @@ public class Seller {
 
   public void setGender(Integer gender) {
     this.gender = gender;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Seller other = (Seller) obj;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Seller [id=" + id + ", name=" + name + ", salary=" + salary + ", bonus=" + bonus + ", gender=" + gender
+        + "]";
   }
 }

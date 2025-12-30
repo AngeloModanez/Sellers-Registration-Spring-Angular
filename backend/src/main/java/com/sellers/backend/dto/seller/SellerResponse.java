@@ -14,13 +14,6 @@ public class SellerResponse {
   public SellerResponse() {
   }
 
-  public SellerResponse(String name, Double salary, Double bonus, Integer gender) {
-    this.name = name;
-    this.salary = salary;
-    this.bonus = bonus;
-    this.gender = gender;
-  }
-
   public SellerResponse(Long id, String name, Double salary, Double bonus, Integer gender) {
     this.id = id;
     this.name = name;
