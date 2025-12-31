@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { Navbar } from './components/navbar/navbar';
 import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
 
 
 registerLocaleData(localePt, 'pt');
@@ -18,7 +19,8 @@ registerLocaleData(localePt, 'pt');
   declarations: [
     App,
     Navbar,
-    Header
+    Header,
+    Footer
   ],
   imports: [
     BrowserModule,
