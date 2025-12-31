@@ -8,13 +8,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { Navbar } from './components/navbar/navbar';
+import { Header } from './components/header/header';
 
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
-    App
+    App,
+    Navbar,
+    Header
   ],
   imports: [
     BrowserModule,
