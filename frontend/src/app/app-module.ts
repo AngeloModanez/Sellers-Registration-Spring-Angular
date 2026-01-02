@@ -11,7 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { Navbar } from './components/navbar/navbar';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
-
+import { SellerTable } from './components/seller-table/seller-table';
 
 registerLocaleData(localePt, 'pt');
 
@@ -20,7 +20,8 @@ registerLocaleData(localePt, 'pt');
     App,
     Navbar,
     Header,
-    Footer
+    Footer,
+    SellerTable
   ],
   imports: [
     BrowserModule,

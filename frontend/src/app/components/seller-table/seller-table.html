@@ -1,0 +1,70 @@
+<div class="card shadow-sm rounded-3">
+  <div class="card-header bg-white border-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="fw-semibold">Sellers</h2>
+      <button class="btn btn-primary btn-sm" (click)="createSeller()">
+        <i class="bi bi-plus-lg"></i>
+        Seller
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Bonus</th>
+            <th>Gender</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (seller of sellers(); track seller.id) {
+          <tr>
+            <td>{{ seller.id }}</td>
+            <td>{{ seller.name }}</td>
+            <td>{{ seller.salary | currency:'USD' }}</td>
+            <td>{{ seller.bonus }}%</td>
+            <td>
+              <span class="badge" [ngClass]="seller.gender === 1 ? 'bg-primary' : 'bg-secondary'">
+                {{ seller.gender === 1 ? 'Male' : 'Female' }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm me-2" (click)="editSeller(seller)">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm " (click)="deleteSeller(confirmModal, seller)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Delete Seller</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Do you want to delete {{ deletedSeller.name }} #{{ deletedSeller.id }}?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="modal.close(true)">
+      Confirm
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()">
+      Cancel
+    </button>
+  </div>
+</ng-template>
