@@ -1,3 +1,6 @@
+@if (showForm) {
+<app-seller-form [seller]="seller()" (saveEmitter)="saveSeller($event)" />
+} @else if (!showForm) {
 <div class="card shadow-sm rounded-3">
   <div class="card-header bg-white border-0">
     <div class="d-flex justify-content-between align-items-center">
@@ -16,32 +19,38 @@
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Salary</th>
-            <th>Bonus</th>
+            <th class="d-none d-sm-table-cell">Salary</th>
+            <th class="d-none d-sm-table-cell">Bonus</th>
             <th>Gender</th>
-            <th>Options</th>
+            <th class="text-end">Options</th>
           </tr>
         </thead>
-
         <tbody>
           @for (seller of sellers(); track seller.id) {
           <tr>
             <td>{{ seller.id }}</td>
             <td>{{ seller.name }}</td>
-            <td>{{ seller.salary | currency:'USD' }}</td>
-            <td>{{ seller.bonus }}%</td>
+            <td class="d-none d-sm-table-cell">
+              {{ seller.salary | currency:'USD' }}
+            </td>
+            <td class="d-none d-sm-table-cell">
+              {{ seller.bonus }}%
+            </td>
             <td>
               <span class="badge" [ngClass]="seller.gender === 1 ? 'bg-primary' : 'bg-secondary'">
                 {{ seller.gender === 1 ? 'Male' : 'Female' }}
               </span>
             </td>
-            <td>
-              <button class="btn btn-outline-primary btn-sm me-2" (click)="editSeller(seller)">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-sm " (click)="deleteSeller(confirmModal, seller)">
-                <i class="bi bi-trash3-fill"></i>
-              </button>
+            <td class="text-end">
+              <div class="d-flex justify-content-end gap-2 flex-nowrap">
+                <button class="btn btn-outline-primary btn-sm" (click)="editSeller(seller)" aria-label="Edit seller">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteSeller(confirmModal, seller)"
+                  aria-label="Delete seller">
+                  <i class="bi bi-trash3-fill"></i>
+                </button>
+              </div>
             </td>
           </tr>
           }
@@ -50,21 +59,32 @@
     </div>
   </div>
 </div>
+}
 
 <ng-template #confirmModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title">Delete Seller</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"></button>
-  </div>
-  <div class="modal-body">
-    <p>Do you want to delete {{ deletedSeller.name }} #{{ deletedSeller.id }}?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="modal.close(true)">
-      Confirm
+    <h5 class="modal-title d-flex align-items-center gap-2">
+      Delete Seller
+    </h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.close()">
     </button>
-    <button type="button" class="btn btn-primary" (click)="modal.close()">
+  </div>
+
+  <div class="modal-body">
+    <p class="mb-1">
+      Are you sure you want to delete this seller?
+    </p>
+    <p class="fw-semibold text-muted mb-0">
+      #{{ deletedSeller.id }}: {{ deletedSeller.name }}
+    </p>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">
       Cancel
+    </button>
+    <button type="button" class="btn btn-danger" (click)="modal.close(true)">
+      Confirm
     </button>
   </div>
 </ng-template>

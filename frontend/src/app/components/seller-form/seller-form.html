@@ -1,0 +1,73 @@
+@if (seller) {
+<div class="card shadow-sm rounded-3">
+  <div class="card-header bg-white">
+    <h4 class="fw-semibold">Seller Registration</h4>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="sellerFormGroup" class="row g-3">
+      @if (seller.id) {
+      <div class="col-12 col-lg-6">
+        <label class="form-label">Id</label>
+        <input formControlName="id" type="text" class="form-control bg-body-tertiary" readonly>
+      </div>
+      }
+
+      <div class="col-12">
+        <label class="form-label">Name</label>
+        <input formControlName="name" type="text" class="form-control" placeholder="Enter seller name">
+        @if ((submitted || name?.touched) && name?.errors?.['required']) {
+        <small class="text-danger">*Name is required</small>
+        } @else if ((submitted || name?.touched) && name?.errors?.['minlength']) {
+        <small class="text-danger">*Name must have at least 2 characters</small>
+        }
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <label class="form-label">Salary</label>
+        <input formControlName="salary" type="number" class="form-control" placeholder="0.00">
+        @if ((submitted || salary?.touched) && salary?.errors?.['required']) {
+        <small class="text-danger">*Salary is required</small>
+        } @else if ((submitted || salary?.touched) && salary?.errors?.['min']) {
+        <small class="text-danger">*Salary must be greater than 0.01</small>
+        }
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <label class="form-label">Bonus (%)</label>
+        <input formControlName="bonus" type="number" class="form-control" placeholder="0 - 100">
+        @if ((submitted || bonus?.touched) && bonus?.errors?.['required']) {
+        <small class="text-danger">*Bonus is required</small>
+        } @else if ((submitted || bonus?.touched) && bonus?.errors?.['min']) {
+        <small class="text-danger">*Bonus must be greater than 0</small>
+        } @else if ((submitted || bonus?.touched) && bonus?.errors?.['max']) {
+        <small class="text-danger">*Bonus must be less than 100</small>
+        }
+      </div>
+
+      <div class="col-12">
+        <label class="form-label d-block">Gender</label>
+        <div class="d-flex flex-column flex-sm-row gap-2">
+          <div class="form-check">
+            <input formControlName="gender" class="form-check-input" type="radio" [value]="0" id="inputFemale">
+            <label class="form-check-label" for="inputFemale">Female</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="gender" class="form-check-input" type="radio" [value]="1" id="inputMale">
+            <label class="form-check-label" for="inputMale">Male</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="save()">
+          Confirm
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+}

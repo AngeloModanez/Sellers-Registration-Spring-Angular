@@ -26,11 +26,11 @@ export class SellerTable {
   editSeller(seller: Seller): void {
     this.seller.set(seller);
     this.showForm = true;
-    this.isEditing = true
+    this.isEditing = true;
   }
 
   createSeller(): void {
-    this.isEditing = true;
+    this.showForm = true;
   }
 
   loadSellers(): void {
@@ -39,15 +39,17 @@ export class SellerTable {
     });
   }
 
-  saveSeller(): void {
-    if (this.isEditing) {
-      this.sellerService.updateSeller(this.seller()).subscribe
-    } else {
-      this.sellerService.saveSeller(this.seller()).subscribe({
-        next: data => {
-          this.sellers.update(seller => [...seller, data]);
-        }
-      });
+  saveSeller(save: boolean) {
+    if (save) {
+      if (this.isEditing) {
+        this.sellerService.updateSeller(this.seller()).subscribe();
+      } else {
+        this.sellerService.saveSeller(this.seller()).subscribe({
+          next: data => {
+            this.sellers.update(seller => [...seller, data]);
+          }
+        });
+      }
     }
 
     this.showForm = false;

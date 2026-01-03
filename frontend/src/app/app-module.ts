@@ -12,6 +12,8 @@ import { Navbar } from './components/navbar/navbar';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { SellerTable } from './components/seller-table/seller-table';
+import { SellerForm } from './components/seller-form/seller-form';
+import { Home } from './components/home/home';
 
 registerLocaleData(localePt, 'pt');
 
@@ -21,7 +23,9 @@ registerLocaleData(localePt, 'pt');
     Navbar,
     Header,
     Footer,
-    SellerTable
+    SellerTable,
+    SellerForm,
+    Home
   ],
   imports: [
     BrowserModule,
