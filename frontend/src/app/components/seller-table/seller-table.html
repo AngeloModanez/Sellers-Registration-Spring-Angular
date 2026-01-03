@@ -1,6 +1,27 @@
 @if (showForm) {
 <app-seller-form [seller]="seller()" (saveEmitter)="saveSeller($event)" />
-} @else if (!showForm) {
+} @else {
+@if (sellers().length === 0) {
+<div class="card shadow-sm rounded-3 text-center">
+  <div class="card-body p-5">
+    <i class="bi bi-people-fill fs-1 text-secondary mb-3 d-block"></i>
+
+    <h4 class="fw-semibold mb-2">
+      No sellers found
+    </h4>
+
+    <p class="text-muted mb-4">
+      You don't have any sellers registered yet.
+      Start by creating your first seller.
+    </p>
+
+    <button class="btn btn-primary" (click)="createSeller()">
+      <i class="bi bi-plus-lg me-1"></i>
+      New Seller
+    </button>
+  </div>
+</div>
+} @else {
 <div class="card shadow-sm rounded-3">
   <div class="card-header bg-white border-0">
     <div class="d-flex justify-content-between align-items-center">
@@ -59,7 +80,6 @@
     </div>
   </div>
 </div>
-}
 
 <ng-template #confirmModal let-modal>
   <div class="modal-header">
@@ -88,3 +108,5 @@
     </button>
   </div>
 </ng-template>
+}
+}
